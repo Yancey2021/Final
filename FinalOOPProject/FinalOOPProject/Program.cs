@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +15,9 @@ namespace FinalOOPProject
     }
     class Program
     {
+        static List<Movie> myMovieList = new List<Movie>();
         static void Main(string[] args)
         {
-            List<Movie> myMovieList = new List<Movie>();
-
         Movie horror1 = new Movie();
         horror1.category = "Horror";
         horror1.title = "Ghosts of War";
@@ -145,7 +145,7 @@ namespace FinalOOPProject
                 Console.WriteLine("Random Movie Picker");
                 Console.WriteLine("1. Pick a random movie");
                 Console.WriteLine("2. Pick a genre and then a random movie");
-                Console.WriteLine("3. Save a movie");
+                Console.WriteLine("3. Save the movies");
                 Console.WriteLine("4. Add a movie to the list");
                 Console.WriteLine("Press any other key to exit program");
                 string userinput = Console.ReadLine();
@@ -167,6 +167,7 @@ namespace FinalOOPProject
                             break;
                         case 3:
                             Console.WriteLine("Genre and random movie selected");
+                            savetodisk();
                             break;
                         case 4:
                             Console.WriteLine("Genre and random movie selected");
@@ -184,7 +185,22 @@ namespace FinalOOPProject
 
             }
         }
+        public static void savetodisk()
+        {
+            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string filename = "Movies.txt";
+            String fullFilePath = System.IO.Path.Combine(currentDirectory, filename);
+            System.IO.StreamWriter outputFile = new StreamWriter(fullFilePath,true);
+            foreach (Movie aMovie in myMovieList)
+            {
+                outputFile.WriteLine(aMovie.title);
+                Console.WriteLine(aMovie.title);
+                outputFile.WriteLine(aMovie.category);
+                outputFile.WriteLine(aMovie.rating);
+            }
+            Console.WriteLine("File saved to" + fullFilePath);
 
-        
+        }
+
     }
 }
