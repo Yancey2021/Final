@@ -207,7 +207,6 @@ namespace FinalOOPProject
              foreach (Movie aMovie in myMovieList)
             {
                 outputFile.WriteLine(aMovie.title);
-                Console.WriteLine(aMovie.title);
                 outputFile.WriteLine(aMovie.category);
                 outputFile.WriteLine(aMovie.rating);
             }
