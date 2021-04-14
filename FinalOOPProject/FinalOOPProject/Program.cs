@@ -150,7 +150,14 @@ namespace FinalOOPProject
                 Console.WriteLine("Press any other key to exit program");
                 string userinput = Console.ReadLine();
                 int userinputnumber = 0;
+                try
+                {
                 userinputnumber = int.Parse(userinput);
+                } catch (Exception ex)
+                {
+                    userinputnumber = 0;
+                }
+               
                 if (userinputnumber > 0)
                 {
                     switch (userinputnumber)
@@ -166,11 +173,11 @@ namespace FinalOOPProject
                         case 2: Console.WriteLine("Genre and random movie selected");
                             break;
                         case 3:
-                            Console.WriteLine("Genre and random movie selected");
+                            Console.WriteLine("Save to disk selected");
                             savetodisk();
                             break;
                         case 4:
-                            Console.WriteLine("Genre and random movie selected");
+                            Console.WriteLine("Adding a movie selected");
                             break;
                         default:
                             Console.WriteLine("Exiting Program");
@@ -190,14 +197,23 @@ namespace FinalOOPProject
             string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string filename = "Movies.txt";
             String fullFilePath = System.IO.Path.Combine(currentDirectory, filename);
-            System.IO.StreamWriter outputFile = new StreamWriter(fullFilePath,true);
-            foreach (Movie aMovie in myMovieList)
+            System.IO.StreamWriter outputFile;
+            if (File.Exists(fullFilePath))
+            {
+                File.Delete(fullFilePath);
+            }
+            using (outputFile = new StreamWriter(fullFilePath, true))
+            {
+             foreach (Movie aMovie in myMovieList)
             {
                 outputFile.WriteLine(aMovie.title);
                 Console.WriteLine(aMovie.title);
                 outputFile.WriteLine(aMovie.category);
                 outputFile.WriteLine(aMovie.rating);
             }
+            }
+          
+          
             Console.WriteLine("File saved to" + fullFilePath);
 
         }
