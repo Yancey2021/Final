@@ -171,6 +171,26 @@ namespace FinalOOPProject
                             Console.WriteLine(randommoviepicked.title);
                             break;
                         case 2: Console.WriteLine("Genre and random movie selected");
+                            string genreselected;
+                            Console.WriteLine("Genre:");
+                            genreselected= Console.ReadLine();
+                            Random R1= new Random();
+                            List<Movie> myMovieListg = new List<Movie>();
+                            foreach (Movie aMovie in myMovieList)
+                            {
+                                if (aMovie.category.ToLower() == genreselected.ToLower())
+                                {
+                                    myMovieListg.Add(aMovie);
+                                }
+                            }
+                            if (myMovieListg.Count > 0)
+                            {
+                                int randommovienumber1 = R1.Next(myMovieListg.Count);
+                                Movie randommoviepicked1 = myMovieListg[randommovienumber1];
+                                Console.WriteLine("Random movie picked");
+                                Console.WriteLine(randommoviepicked1.title);
+                            }
+                            else { Console.WriteLine("No movies found for that category"); }
                             break;
                         case 3:
                             Console.WriteLine("Save to disk selected");
@@ -178,6 +198,19 @@ namespace FinalOOPProject
                             break;
                         case 4:
                             Console.WriteLine("Adding a movie selected");
+                            Movie newmovie = new Movie();
+                            string category, title, rating;
+                            Console.WriteLine("Category:");
+                            category = Console.ReadLine();
+                            Console.WriteLine("Title:");
+                            title = Console.ReadLine();
+                            Console.WriteLine("Rating:");
+                            rating = Console.ReadLine();
+                            newmovie.category = category;
+                            newmovie.title = title;
+                            newmovie.rating = rating;
+                            myMovieList.Add(newmovie);
+                            Console.WriteLine("Movie Added");
                             break;
                         default:
                             Console.WriteLine("Exiting Program");
